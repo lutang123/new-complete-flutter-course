@@ -26,6 +26,11 @@ git reset --hard HEAD
 git checkout <branch-name>
 ```
 
+**Note**:
+This playlist videos follow this course: https://codewithandrea.com/courses/flutter-foundations/
+
+You are welcome to purchase this course, if you didn't, you can also follow along with my videos to learn. The original course code is public, and it's similar with this repo, but in this repo I added my own styles, notes and analysis.
+
 ## Flutter Foundations - Course Syllabus
 
 ### 1. Intro & Project Overview
