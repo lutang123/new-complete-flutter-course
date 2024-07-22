@@ -41,3 +41,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# firebased local emulator exports
+firebase-exports
+
+# Environment variables
+.env.dev
+.env.stag
+.env.prod
+
+# Ignore test coverage data
+coverage/

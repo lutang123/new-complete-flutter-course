@@ -1,53 +1,51 @@
-import 'dart:async';
-
 import 'package:ecommerce_app/src/constants/test_products.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
 import 'package:collection/collection.dart';
+import 'package:ecommerce_app/src/utils/delay.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeProductsRepository {
+  FakeProductsRepository({this.addDelay = true});
+  final bool addDelay;
+
   // FakeProductsRepository._();
 
   // static FakeProductsRepository instance = FakeProductsRepository._();
 
   final List<Product> _fakeProducts = kTestProducts;
 
-  // List<Product> getProductsList() {
-  //   return _fakeProducts;
-  // }
+  List<Product> getProductsList() {
+    return _fakeProducts;
+  }
 
   Product? getProduct(String productId) {
-    return _fakeProducts.firstWhereOrNull((product) => product.id == productId);
+    return _getProduct(_fakeProducts, productId);
   }
 
   Future<List<Product>> fetchProductList() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await delay(addDelay);
     //* for testing error
     // throw Exception('Error fetching products');
     return Future.value(_fakeProducts);
   }
 
-//* only emit one value
+  //* only emit one value
   Stream<List<Product>> watchProductList() async* {
-    await Future.delayed(const Duration(seconds: 2));
+    await delay(addDelay);
     yield _fakeProducts;
   }
 
 //* only emit one value
   Stream<Product?> watchProduct(String productId) {
-    return watchProductList().map((products) =>
-        products.firstWhereOrNull((product) => product.id == productId));
+    return watchProductList()
+        .map((products) => _getProduct(products, productId));
   }
 
-//   Product? getProduct(String id) {
-//     try {
-//       return kTestProducts.firstWhere((product) => product.id == id);
-//     } catch (e) {
-//       return null;
-//     }
-//   }
-// }
+//if using firstWhere, need to add try and catch block to return null if error
+  Product? _getProduct(List<Product> products, String productId) {
+    return products.firstWhereOrNull((product) => product.id == productId);
+  }
 }
 
 final productsRepositoryProvider = Provider<FakeProductsRepository>((ref) {
