@@ -43,8 +43,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   rxdart: ^0.27.7
   riverpod_annotation: ^2.3.5
+  mocktail: ^1.0.4
 
-  flutter_web_plugins: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/src/utils/delay.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
 import 'package:ecommerce_app/src/utils/in_memory_store.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class AuthRepository {
   Stream<AppUser?> authStateChanges();
@@ -11,6 +13,9 @@ abstract class AuthRepository {
 }
 
 class FakeAuthRepository implements AuthRepository {
+  FakeAuthRepository({this.addDelay = true});
+  final bool addDelay;
+
   final _authState = InMemoryStore<AppUser?>(null);
 
   @override
@@ -24,26 +29,21 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
-    // throw Exception('Error signing out');
-    if (currentUser == null) {
-      _createNewUser(email);
-    }
+    await delay(addDelay);
+    _createNewUser(email);
   }
 
   @override
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
-    if (currentUser == null) {
-      _createNewUser(email);
-    }
+    await delay(addDelay);
+    _createNewUser(email);
   }
 
   @override
   Future<void> signOut() async {
+    await delay(addDelay);
     //*this is to test the error state
-    await Future.delayed(const Duration(seconds: 1));
     // throw Exception('Error signing out');
     _authState.value = null;
   }
