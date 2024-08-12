@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as flutter_riverpod;
 
+//TODO: in last module, we will change to generate providers
 // import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // part 'account_screen_controller.g.dart';
@@ -18,19 +19,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' as flutter_riverpod;
 //   }
 // }
 
+//** The following code shows how to use StateNotifier and with AsyncValue */
 //Type Annotations and Type Errors during tests
 //* use AsyncValue<void> to make the controller more robust and handle different states, but to simplify the code, we can remove the type and use AsyncValue, but got error in test
 class AccountScreenController
     extends flutter_riverpod.StateNotifier<flutter_riverpod.AsyncValue<void>> {
   AccountScreenController({required this.authRepository})
       : super(const flutter_riverpod.AsyncValue.data(
-            null)); // use AsyncData rather than AsyncValue.data
+            null)); // we can use AsyncData rather than AsyncValue.data
   final AuthRepository authRepository;
 
   //   //* in some case we may want tor return a boolean value
   // Future<bool> signOut() async {
-  //   state = const flutter_riverpod
-  //       .AsyncValue.loading(); // use AsyncLoading rather than AsyncValue.loading
+  //   state = const flutter_riverpod.AsyncValue.loading();
   //   state =
   //       await flutter_riverpod.AsyncValue.guard(() => authRepository.signOut());
   //   //* this is another way to do it
@@ -43,7 +44,7 @@ class AccountScreenController
 
   Future<void> signOut() async {
     state = const flutter_riverpod
-        .AsyncValue.loading(); // use AsyncLoading rather than AsyncValue.loading
+        .AsyncValue.loading(); // we can use AsyncLoading rather than AsyncValue.loading
     state =
         await flutter_riverpod.AsyncValue.guard(() => authRepository.signOut());
   }
@@ -63,12 +64,13 @@ final accountScreenControllerProvider =
 // AsyncValue.loading is the same as AsyncLoading
 // AsyncValue.error is the same as AsyncError
 
-//Note: This is the same as the above controller but with ChangeNotifier.
+//** The following code shows how to use ChangeNotifier to create this controller provider */
 // class AccountScreenController2 extends ChangeNotifier {
 //   AccountScreenController2({required this.authRepository});
 
 //   final AuthRepository authRepository;
 
+//* we replace the old way for creating loading and error state with  AsyncValue
 //   // bool _isLoading = false;
 //   // bool get isLoading => _isLoading;
 
