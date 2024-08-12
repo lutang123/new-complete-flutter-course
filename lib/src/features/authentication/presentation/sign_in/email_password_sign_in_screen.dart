@@ -127,6 +127,7 @@ class _EmailPasswordSignInContentsState
 
     final state =
         ref.watch(emailPasswordSignInControllerProvider(widget.formType));
+
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,

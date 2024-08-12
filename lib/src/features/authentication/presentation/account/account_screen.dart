@@ -8,7 +8,7 @@ import 'package:ecommerce_app/src/common_widgets/action_text_button.dart';
 import 'package:ecommerce_app/src/common_widgets/responsive_center.dart';
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 
 /// Simple account screen showing some user info and a logout button.
 class AccountScreen extends ConsumerWidget {
@@ -35,7 +35,7 @@ class AccountScreen extends ConsumerWidget {
                     // * Get the navigator beforehand to prevent this warning:
                     // * Don't use 'BuildContext's across async gaps.
                     // * More info here: https://youtu.be/bzWaMpD1LHY
-                    final goRouter = GoRouter.of(context);
+                    // final goRouter = GoRouter.of(context);
                     final logout = await showAlertDialog(
                       context: context,
                       title: 'Are you sure?'.hardcoded,
@@ -43,10 +43,10 @@ class AccountScreen extends ConsumerWidget {
                       defaultActionText: 'Logout'.hardcoded,
                     );
                     if (logout == true) {
-                      //* we should not call the repository directly to sign out, we want to user controller to handle this and manage different states
+                      //* we should not call the repository directly to sign out, we want user controller to handle this and manage different states
                       // await ref.read(authRepositoryProvider).signOut();
 
-//* we added refreshListenable: in goRouterProvider to refresh the router when the user signs out, so we no longer need to call pop here
+                      //* we added refreshListenable: in goRouterProvider to refresh the router when the user signs out, so we no longer need to call pop here
                       // final isSuccess = await
                       ref
                           .read(accountScreenControllerProvider.notifier)
